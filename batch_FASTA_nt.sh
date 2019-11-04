@@ -1,6 +1,5 @@
-#!/bin/sh
-## chmod u+x batch_FASTA.sh. disregard this if no issues executing .sh file.
-
+#!/bin/bash
+chmod u+x batch_FASTA_nt.sh
 #___________________________________________________________________________________________
 
 ##blast+ executable files must be in Program files. See IT admin for admin access to download/move files to program files.
@@ -32,7 +31,7 @@ echo -e '\n\nFASTAs ready for analysis\n\n'
 #___________________________________________________________________________________________
 
 #find 16SMicrobial files in personal drive (P:)
-DB16S=$(find /p/ -type d -name '16SMicrobial')
+#DB16S=$(find /p/ -type d -name '16SMicrobial')
 
 
 ##looping FASTA files through blastn command
@@ -46,7 +45,7 @@ DB16S=$(find /p/ -type d -name '16SMicrobial')
 for f in $fasta_dir/FASTA_files/*.fasta; do
 	echo 'Processing' $(basename $f) '...';
 	b=$(basename -s .fasta $f);
-	'C:\Program Files\NCBI\blast-2.9.0+\bin\blastn' -query "$f" -db $DB16S/16SMicrobial  -outfmt 1 -out $fasta_dir/FASTA_files/$b.doc -num_descriptions 100 -num_alignments 10 -html -sorthits 3;
+	'C:\Program Files\NCBI\blast-2.9.0+\bin\blastn' -query "$f" -db nt -outfmt 0 -out $fasta_dir/FASTA_files/$b.doc -num_descriptions 100 -num_alignments 10 -sorthits 3 -remote -html;
 	echo -e '16S BLAST search completed\n';
 done
 
